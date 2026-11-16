@@ -1,0 +1,69 @@
+# --- ОС / редактор ---
+.DS_Store
+Thumbs.db
+*.swp
+*.swo
+.idea/
+.vscode/
+*.code-workspace
+
+# --- Секреты ---
+.env
+.env.*
+!.env.example
+*.pem
+*.key
+credentials*.json
+secrets/
+
+# --- Python ---
+.venv/
+venv/
+__pycache__/
+*.py[cod]
+*$py.class
+.pytest_cache/
+.mypy_cache/
+.ruff_cache/
+.coverage
+htmlcov/
+dist/
+build/
+*.egg-info/
+
+# --- Node ---
+node_modules/
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+.pnpm-store/
+dist/
+.next/
+.nuxt/
+.turbo/
+coverage/
+
+# --- Логи / временное ---
+*.log
+tmp/
+temp/
+.cache/
+
+# --- AI local (не выгружать в git) ---
+.cursorrules
+AGENTS.md
+.cursor/rules/
+.cursor/*.mdc
+SETUP_DONE.md
+.codex/
+.claude/
+.aider*
+.continual-learning/
+
+# --- Raw data (texts, author ids): never commit ---
+data/raw/
+*.sql
+*.db
+# --- model caches / experiment outputs ---
+.hf_cache/
+results/

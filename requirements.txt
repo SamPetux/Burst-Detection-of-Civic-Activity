@@ -1,0 +1,14 @@
+# Core experiment stack (CPU-only is sufficient; see docs/02_plan.md)
+--extra-index-url https://download.pytorch.org/whl/cpu
+torch>=2.4
+chronos-forecasting>=2.0
+pandas>=2.2
+pyarrow>=16
+numpy>=1.26
+scipy>=1.13
+statsmodels>=0.14
+scikit-learn>=1.5
+matplotlib>=3.9
+# optional baselines / models
+# timesfm  (install from GitHub, see docs/02_plan.md, task D5)
+# uni2ts   (Moirai 2.0, CC-BY-NC license — research use only)
