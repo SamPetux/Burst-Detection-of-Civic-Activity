@@ -1,0 +1,49 @@
+diff --git a/modules/vk_parser.py b/modules/vk_parser.py
+index 6cc10b5..4cbb322 100644
+--- a/modules/vk_parser.py
++++ b/modules/vk_parser.py
+@@ -186,6 +186,10 @@ class VKParser:
+             for post in items:
+                 post_dt = datetime.fromtimestamp(post["date"])
+                 if post_dt < since_dt:
++                    # A pinned post is returned first regardless of its age; stopping on it
++                    # silently drops the whole wall of the group.
++                    if post.get("is_pinned"):
++                        continue
+                     return
+                 yield post
+                 fetched += 1
+@@ -225,8 +229,32 @@ class VKParser:
+                 yield c, c.get("reply_to_comment")
+                 # внутри треда — ответы. parent = id корневого.
+                 thread = c.get("thread", {})
+-                for nested in thread.get("items", []):
++                items = thread.get("items", [])
++                for nested in items:
+                     yield nested, c["id"]
++                # wall.getComments embeds at most thread_items_count replies; hot threads
++                # (exactly the bursts we measure) need the rest fetched explicitly.
++                if thread.get("count", 0) > len(items):
++                    yield from self._fetch_thread_tail(owner_id, post_vk_id, c["id"],
++                                                       skip=len(items), page_size=page_size)
++            offset += page_size
++            if offset >= response.get("count", 0):
++                return
++
++    def _fetch_thread_tail(
++        self, owner_id: int, post_vk_id: int, root_id: int, *, skip: int, page_size: int,
++    ) -> Iterator[tuple[dict, Optional[int]]]:
++        offset = skip
++        while True:
++            response = self._call(
++                "wall.getComments",
++                owner_id=owner_id, post_id=post_vk_id, comment_id=root_id,
++                count=page_size, offset=offset, need_likes=1,
++            )
++            if not response or not response.get("items"):
++                return
++            for nested in response["items"]:
++                yield nested, root_id
+             offset += page_size
+             if offset >= response.get("count", 0):
+                 return

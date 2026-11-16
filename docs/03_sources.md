@@ -33,6 +33,7 @@
 | A7 | Leveraging Intermediate Representations of TSFM for Anomaly Detection. 2025 | arXiv:2509.12650 | ✅ (abs title) | эмбеддинги TSFM |
 | A8 | Karami M., Jalali M., Ghassemi F. A Comprehensive Forecasting-Based Framework for TSAD: Benchmarking on NAB. 2025 | arXiv:2510.11141 | ✅ abs | качество прогноза важнее метода порога (F1 0.62–0.69 между порогами, 0.34–0.69 между моделями); STL в препроцессинге |
 | A9 | Time Series Foundational Models: Their Role in Anomaly Detection and Prediction. 2024 | arXiv:2412.19286 | 🔎 | ранняя оценка: zero-shot AD только у TimeGPT/FPT |
+| A11 | Martinez Gil N., O'Donncha F., Gifford W.M., Zhou N., Patel D.C., Vaculin R. Adaptive Conformal Anomaly Detection with Time Series Foundation Models for Signal Monitoring. 2026 (по данным поиска, ICLR 2026; проверить площадку) | arXiv:2604.20122 | ✅ abs + HTML | **ближайшая работа**: конформная калибровка тревог над TSFM (Chronos-Bolt и др.), p-значение как доля ложных тревог; многомерный случай через независимые p-значения и метод Фишера; промышленные сенсоры, не счётные ряды |
 | A10 | Liu Q., Paparrizos J. The Elephant in the Room: Towards a Reliable Time-Series Anomaly Detection Benchmark (TSB-AD). NeurIPS 2024 D&B | ⚠️ id не найден | ⚠️ | бенчмарк, на который опирается A1 |
 
 ## Метрики и оценка
