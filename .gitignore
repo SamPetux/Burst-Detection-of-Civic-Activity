@@ -66,4 +66,4 @@ data/raw/
 *.db
 # --- model caches / experiment outputs ---
 .hf_cache/
-results/
+/results/
