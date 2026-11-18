@@ -82,3 +82,24 @@ def cusum_alarms(r: np.ndarray, k: float, h: float, s0: float = 0.0) -> tuple[np
 
 def chronos_score(y: np.ndarray, q50: np.ndarray, q99: np.ndarray) -> np.ndarray:
     return (y - q50) / (q99 - q50 + 1.0)
+
+
+def stl_z(y: np.ndarray, idx=None, w: int = 336, period: int = 24, refit: int = 24, eps: float = 1.0) -> np.ndarray:
+    """Robust z of the STL forecast residual. STL (daily period, robust) is refitted every `refit` hours
+    on the preceding `w` hours; the forecast is the last trend value plus the seasonal value one period back."""
+    from statsmodels.tsa.seasonal import STL
+
+    out = np.full(len(y), np.nan)
+    idx = range(w, len(y)) if idx is None else [t for t in idx if t >= w]
+    fits = {}
+    for t in idx:
+        d0 = t - t % refit
+        if d0 < w:
+            continue
+        if d0 not in fits:
+            r = STL(y[d0 - w:d0], period=period, robust=True).fit()
+            mad = np.median(np.abs(r.resid - np.median(r.resid)))
+            fits[d0] = (r.trend[-1], r.seasonal[-period:], MAD_K * mad + eps)
+        trend, seas, scale = fits[d0]
+        out[t] = (y[t] - trend - seas[(t - d0) % period]) / scale
+    return out

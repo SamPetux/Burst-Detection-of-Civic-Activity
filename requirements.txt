@@ -12,3 +12,9 @@ matplotlib>=3.9
 # optional baselines / models
 # timesfm  (install from GitHub, see docs/02_plan.md, task D5)
 # uni2ts   (Moirai 2.0, CC-BY-NC license — research use only)
+
+# Paper layout
+python-docx>=1.1
+openpyxl>=3.1
+# LLM geoparser (scripts/geoparse_*.py)
+openai>=1.40

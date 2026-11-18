@@ -8,9 +8,14 @@ DISTRICTS = ["avtozavodsky", "kanavinsky", "leninsky", "moskovsky",
 TZ = "Europe/Moscow"
 
 
-def load_messages(corpus_path: str) -> pd.DataFrame:
+def load_messages(corpus_path: str, geo_path: str | None = None) -> pd.DataFrame:
+    """geo_path: optional CSV (kind, msg_id, district) that overrides the corpus district."""
     df = pd.read_csv(corpus_path, usecols=["kind", "msg_id", "group", "date_utc", "district_id"],
-                     dtype={"district_id": "string", "group": "string"})
+                     dtype={"district_id": "string", "group": "string", "msg_id": str})
+    if geo_path:
+        g = pd.read_csv(geo_path, usecols=["kind", "msg_id", "district"], dtype={"district": "string", "msg_id": str})
+        df = df.merge(g, on=["kind", "msg_id"], how="left")
+        df["district_id"] = df.pop("district").fillna(df.district_id)
     df["ts"] = pd.to_datetime(df.date_utc, utc=True, format="mixed").dt.tz_convert(TZ)
     df["district"] = df.district_id.where(df.district_id.isin(DISTRICTS), "unassigned")
     return df
