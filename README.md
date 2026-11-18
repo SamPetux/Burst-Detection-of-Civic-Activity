@@ -10,6 +10,10 @@ are assigned to city districts (community district or an LLM geoparser), aggrega
 and an alarm is raised when an observation exceeds the 0.99 quantile of a zero-shot Chronos-2 forecast.
 Baselines: seasonal negative binomial, robust z-score, seasonal z-score, CUSUM and STL residuals.
 
+The corpus was collected with the VK parser of the authors' earlier monitoring platform
+[civic-monitor-nn](https://github.com/SamPetux/civic-monitor-nn), with the fixes in
+`docs/recollect_vk_parser.patch`.
+
 ## Repository layout
 
 | Path | Content |
