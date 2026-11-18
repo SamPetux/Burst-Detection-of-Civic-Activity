@@ -1,0 +1,10 @@
+method,metric,value,ci_low,ci_high
+test_dictionary,macro_f1,0.514,0.366,0.619
+test_dictionary,recall_located,0.5,0.37,0.632
+test_dictionary,precision_assigned,0.829,0.697,0.944
+test_gpt-55_v2,macro_f1,0.734,0.579,0.844
+test_gpt-55_v2,recall_located,0.81,0.71,0.904
+test_gpt-55_v2,precision_assigned,0.723,0.607,0.828
+test_student,macro_f1,0.464,0.347,0.558
+test_student,recall_located,0.603,0.48,0.727
+test_student,precision_assigned,0.507,0.387,0.623
